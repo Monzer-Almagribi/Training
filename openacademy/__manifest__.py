@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "openacademy",
+    'name': "Open Academy",
 
-    'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+    'summary': """Manage Trainings""",
 
     'description': """
-        Long description of module's purpose
+        Open academy module for managing training sessions, courses and attendees
     """,
 
     'author': "My Company",
@@ -16,7 +14,7 @@
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Uncategorized',
+    'category': 'test',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
@@ -25,11 +23,12 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/views.xml',
         'views/templates.xml',
+        'views/openacademy.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
 }
+
