@@ -1,6 +1,5 @@
 <odoo>
   <data>
-
     <!-- courses form view -->
     <record model="ir.ui.view" id="course_form_view">
       <field name="name">course.form</field>
@@ -10,13 +9,19 @@
               <sheet>
                 <group colspan="2" col="2">
                   <field name="name"/>
+                  <field name="responsible_id"/>
                 </group>
                 <notebook>
                     <page string="Description">
                         <field name="description"/>
                     </page>
-                    <page string="About">
-                      this is an example about using pages and notebook
+                    <page string="Sessions">
+                        <field name="session_ids">
+                            <tree string="Registered sessions">
+                                <field name="name"/>
+                                <field name="instructor_id"/>
+                            </tree>
+                        </field>
                     </page>
                 </notebook>
               </sheet>
@@ -31,6 +36,7 @@
       <field name="arch" type="xml">
           <search>
             <field name="name"/>
+            <field name="responsible_id"/>
             <field name="description"/>
           </search>
       </field>
@@ -42,25 +48,13 @@
       <field name="model">openacademy.course</field>
       <field name="arch" type="xml">
           <tree string="Course List">
+              <!-- <field name="id"/> -->
               <field name="name"/>
+              <field name="responsible_id"/>
               <field name="description"/>
           </tree>
       </field>
     </record>
-
-    <!-- actions menu items-->
-    <record model="ir.actions.act_window" id="course_list_action">
-        <field name="name">Courses</field>
-        <field name="res_model">openacademy.course</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">Create the first course
-            </p>
-        </field>
-    </record>
-
-
-
 
     <!-- sessions form view -->
     <record model="ir.ui.view" id="session_form_view">
@@ -69,14 +63,19 @@
       <field name="arch" type="xml">
           <form string="Session Form">
               <sheet>
-                <group colspan="2" col="2">
-                  <field name="name"/>
-                  <field name="start_date"/>
+                <group string="General">
+                    <field name="course_id"/>
+                    <field name="name"/>
+                    <field name="instructor_id"/>
                 </group>
-                <group  colspan="2" col="2">
-                  <field name="duration"/>
-                  <field name="seats"/>
+                <group string="Schedule">
+                    <field name="start_date"/>
+                    <field name="duration"/>
+                    <field name="seats"/>
                 </group>
+                <label for="attendee_ids" />
+                <field name="attendee_ids" />
+                f
               </sheet>
           </form>
       </field>
@@ -96,18 +95,27 @@
       </field>
     </record>
 
-    <!-- session tree view -->
+    <!-- session tree/list view -->
     <record model="ir.ui.view" id="session_tree_view">
-      <field name="name">session.tree</field>
-      <field name="model">openacademy.session</field>
-      <field name="arch" type="xml">
-          <tree string="Sessions List">
-            <field name="name"/>
-            <field name="start_date"/>
-            <field name="duration"/>
-            <field name="seats"/>
-          </tree>
-      </field>
+        <field name="name">session.tree</field>
+        <field name="model">openacademy.session</field>
+        <field name="arch" type="xml">
+            <tree string="Session Tree">
+                <field name="name"/>
+                <field name="course_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- actions menu items-->
+    <record model="ir.actions.act_window" id="course_list_action">
+        <field name="name">Courses</field>
+        <field name="res_model">openacademy.course</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first course
+            </p>
+        </field>
     </record>
 
     <!-- actions menu items-->
@@ -120,7 +128,6 @@
             </p>
         </field>
     </record>
-
 
     <!-- top level menu: no parent -->
     <menuitem id="main_openacademy_menu" name="Open Academy"/>
